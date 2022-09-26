@@ -14,10 +14,10 @@ hand_obj = hands.Hands(max_num_hands = 1)  # [q = Ye nhi samjh aya ? ]
 cap = cv2.VideoCapture(0)       # create cap object of VideoCapture to read frames from our 0th webcam
 
 while True:                     # infinite loop
-    _, frm = cap.read()         # Q = WHAT'S THE MEANING OF _,?
+    _, frm = cap.read()         
     cv2.imshow("window",frm)
 
-    frm = cv2.flip(frm,1)       # [Q = flipping hui hi nahi?] flip the frame because mirror because inverted photos are coming PASS 1 for horizontal flipping
+    frm = cv2.flip(frm,1)       #flip the frame because mirror because inverted photos are coming PASS 1 for horizontal flipping
 
     res = hand_obj.process(cv2.cvtColor(frm,cv2.COLOR_BGR2RGB))    # we will send frames (frm) to hands object and store result in res variable
                                                                    # We have to pass frm in RGB format but OpenCV reads VGA format so we will explicitely convert cv2.cvtColor(frm,cv2.COLOR_BGR2RGB)
@@ -26,8 +26,8 @@ while True:                     # infinite loop
 
     # Now it will not always be the case that there are hands in the frame
 
-    if res.multi_hand_landmarks:        # this will return the number of hands detected in frame so if this count os greater than 0 then we will enter this block
-        drawing.draw_landmarks(frm,res.multi_hand_landmarks[0])
+    if res.multi_hand_landmarks:        # multi_hands_landmarks is a list of detected hands so if list is not empty we will enter this block and draw landmarks
+        drawing.draw_landmarks(frm,res.multi_hand_landmarks[0]) # drawing landmarks on 0 means one hand
 
 
 
